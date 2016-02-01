@@ -12,11 +12,16 @@ import React, {
 } from 'react-native';
 
 class socialdosimeter extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+          Social Dosimeter
         </Text>
         <Text style={styles.instructions}>
           To get started, edit index.ios.js
