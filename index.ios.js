@@ -11,10 +11,23 @@ import React, {
   View
 } from 'react-native';
 
+let apiKey = '';
+
 class socialdosimeter extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+  }
+
+  componentDidMount() {
+    fetch('https://api.breezometer.com/baqi/?lat=40.7324296&lon=-73.9977264&key=' + apiKey)
+    .then((response) => response.text())
+    .then((responseText) => {
+      console.log(responseText);
+    })
+    .catch((error) => {
+      console.warn(error);
+    });
   }
 
   render() {
