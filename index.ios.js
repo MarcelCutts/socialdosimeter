@@ -11,7 +11,7 @@ import React, {
   View
 } from 'react-native';
 
-let apiKey = '';
+let apiKey = ''; // Add your breezeometer api here
 
 class socialdosimeter extends Component {
   constructor(props) {
@@ -19,16 +19,18 @@ class socialdosimeter extends Component {
     this.state = {};
   }
 
-  componentDidMount() {
-    fetch('https://api.breezometer.com/baqi/?lat=40.7324296&lon=-73.9977264&key=' + apiKey)
-    .then((response) => response.text())
-    .then((responseText) => {
-      console.log(responseText);
+  componentDidMount = () => {
+    console.log('test');
+    fetch('https://api.breezometer.com/baqi/?lat=51.500152&lon=-0.126182&key=' + apiKey)
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.log(responseJson);
+      this.setState({airQuality: responseJson.breezometer_aqi});
     })
     .catch((error) => {
       console.warn(error);
     });
-  }
+  };
 
   render() {
     return (
@@ -37,7 +39,7 @@ class socialdosimeter extends Component {
           Social Dosimeter
         </Text>
         <Text style={styles.instructions}>
-          To get started, edit index.ios.js
+          For now - London air quality is {this.state.airQuality}
         </Text>
         <Text style={styles.instructions}>
           Press Cmd+R to reload,{'\n'}
