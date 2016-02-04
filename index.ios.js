@@ -10,8 +10,11 @@ import React, {
   Text,
   View
 } from 'react-native';
+import config from './config';
 
-let apiKey = ''; // Add your breezeometer api here
+
+let apiKey = config.API_KEY; // Add your breezeometer api here
+console.log('api key is ' + config.API_KEY);
 
 class socialdosimeter extends Component {
   constructor(props) {
