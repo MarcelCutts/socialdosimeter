@@ -21,18 +21,22 @@ class socialdosimeter extends Component {
     this.state = {};
   }
 
-  componentDidMount = () => {
-    // A test request made to an air quality API. The lattitude and longitude
-    // given as query parameters refer to London, UK
-    fetch('https://api.breezometer.com/baqi/?lat=51.500152&lon=-0.126182&key=' + apiKey)
-    .then((response) => response.json())
-    .then((responseJson) => {
-      console.log(responseJson);
+  async getAirQuality() {
+    try {
+      // A test request made to an air quality API. The lattitude and longitude
+      // given as query parameters refer to London, UK
+      let url = 'https://api.breezometer.com/baqi/?lat=51.500152&lon=-0.126182&key=' + apiKey;
+      let response = await fetch(url);
+      let responseJson = await response.json();
       this.setState({airQuality: responseJson.breezometer_aqi});
-    })
-    .catch((error) => {
-      console.warn(error);
-    });
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
+
+  componentDidMount = () => {
+    this.getAirQuality();
   };
 
   render() {
