@@ -1,6 +1,7 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
+ * Extension of the sample react native app.
+ * Mostly, currently used to experiment with the
+ * abilities and limitations of react-native
  */
 'use strict';
 import React, {
@@ -12,9 +13,7 @@ import React, {
 } from 'react-native';
 import config from './config';
 
-
 let apiKey = config.API_KEY; // Add your breezeometer api here
-console.log('api key is ' + config.API_KEY);
 
 class socialdosimeter extends Component {
   constructor(props) {
@@ -23,7 +22,8 @@ class socialdosimeter extends Component {
   }
 
   componentDidMount = () => {
-    console.log('test');
+    // A test request made to an air quality API. The lattitude and longitude
+    // given as query parameters refer to London, UK
     fetch('https://api.breezometer.com/baqi/?lat=51.500152&lon=-0.126182&key=' + apiKey)
     .then((response) => response.json())
     .then((responseJson) => {
