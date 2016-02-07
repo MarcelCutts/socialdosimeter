@@ -13,22 +13,27 @@ import React, {
 } from 'react-native';
 import config from './config';
 
-let apiKey = config.API_KEY; // Add your breezeometer api here
+let API_KEY = config.API_KEY; // Add your breezeometer api here
+let REQUEST_URL = 'https://api.breezometer.com/baqi/?lat=51.5&lon=-0.126&key=' + API_KEY;
 
 class socialdosimeter extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      loaded: false,
+    };
   }
 
   async getAirQuality() {
     try {
       // A test request made to an air quality API. The lattitude and longitude
       // given as query parameters refer to London, UK
-      let url = 'https://api.breezometer.com/baqi/?lat=51.500152&lon=-0.126182&key=' + apiKey;
-      let response = await fetch(url);
+      let response = await fetch(REQUEST_URL);
       let responseJson = await response.json();
-      this.setState({airQuality: responseJson.breezometer_aqi});
+      this.setState({
+        airQuality: responseJson.breezometer_aqi,
+        loaded: true,
+      });
     } catch (error) {
       console.log(error);
       throw error;
@@ -39,7 +44,21 @@ class socialdosimeter extends Component {
     this.getAirQuality();
   };
 
+  renderLoadingView() {
+    return (
+      <View style={styles.container}>
+        <Text>
+          Loading air quality...
+        </Text>
+      </View>
+    );
+  }
+
   render() {
+    if (!this.state.loaded) {
+      return this.renderLoadingView();
+    }
+
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
